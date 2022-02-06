@@ -25,6 +25,7 @@ export const LoginPage = () => {
             doLogin(json.token, rememberPassword); //saves cookie
             window.location.href = '/'
         }
+        setDisabled(false);
     }
 
     return(
