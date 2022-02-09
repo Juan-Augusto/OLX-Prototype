@@ -1,10 +1,10 @@
 
 import { LoginArea } from "./styled";
-import { PageContainer, PageTitle } from "../../MainComponents";
+import { PageContainer, PageTitle } from "../../Components/MainComponents";
 import { useState } from "react";
-import useAPI from '../../Helpers/OlxApi'
-import { doLogin } from "../../Helpers/AuthHandler";
-import { ErrorMessage } from "../../MainComponents";
+import useAPI from '../../Components/Helpers/OlxApi'
+import { doLogin } from "../../Components/Helpers/AuthHandler";
+import { ErrorMessage } from "../../Components/MainComponents";
 
 export const LoginPage = () => {
     const api = useAPI();
