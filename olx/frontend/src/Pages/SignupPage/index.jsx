@@ -29,14 +29,20 @@ export const SignupPage = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault();
         setDisabled(true);
+        setError('');
 
-        // const json = await api.login(email, password);
-        // if(json.error) {
-        //     setError(json.error);
-        // }else{
-        //     doLogin(json.token, rememberPassword); //saves cookie
-        //     window.location.href = '/'
-        // }
+        if(password !== confirmPassword){
+            setError('Senhas não batem!');
+            setDisabled(false);
+            return;
+        }
+        const json = await api.register(name, email, password, stateLoc);
+        if(json.error) {
+            setError(json.error);
+        }else{
+            doLogin(json.token); //saves cookie
+            window.location.href = '/'
+        }
         setDisabled(false);
     }
 
