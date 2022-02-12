@@ -102,4 +102,37 @@ export const SearchArea = styled.div`
             }
         }
     }
+    .categoryList{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+       
+        .categoryItem{
+            width: 25%;
+            display: flex;
+            align-items: center;
+            color: #000;
+            text-decoration: none;
+            height: 50px;
+            margin-bottom: 10px;
+            transition: .3s;
+            border-radius: 5px;
+            padding: 5px;
+
+            &:hover{
+                transform: translateY(-3px);
+                background-color: #007;
+                color: #999;
+                font-weight: bold;
+            }
+
+            img{
+                width: 45px;
+                height: 45px;
+                margin-right: 10px;
+            }
+            
+        }
+    }
 `;
