@@ -3,11 +3,14 @@ import { PageArea, SearchArea } from "./styled";
 import { PageContainer } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
 import { Link } from "react-router-dom";
+import { AdItem } from "../../Components/Partials/AdItem";
 
 export const Home = () => {
     const api = useAPI();
     const [stateList, setStateList] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [adList, setadList] = useState([]);
+
 
     useEffect(() => {
         const getStates = async() => {
@@ -22,6 +25,17 @@ export const Home = () => {
             setCategories(cList);
         }
         getCategories();
+    }, []);
+    useEffect(() => {
+        const getRecentAds = async() => {
+            const json = await api.getAds({
+                sort: 'desc',
+                limit: 8
+            });
+            setadList(json.ads);
+            
+        }
+        getRecentAds();
     }, []);
     return(
         <>
@@ -52,7 +66,18 @@ export const Home = () => {
             </SearchArea>
             <PageContainer>
                 <PageArea>
-                    ...
+                    <h2>Anúncios recentes</h2>
+                    <div className="list">
+                        {adList.map((ads, adKey) =>
+                            <AdItem key={adKey} data={ads}/>
+                        )}
+                    </div>
+                    <Link to="/ads" className="seeAllLink">
+                        Ver todos
+                    </Link>
+                    <hr />
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto fugiat temporibus officiis magni, sunt odio error consectetur doloremque suscipit fugit ad est cum quis a, nemo asperiores nostrum voluptates aspernatur.
+            
                 </PageArea>
             </PageContainer>
         </>
