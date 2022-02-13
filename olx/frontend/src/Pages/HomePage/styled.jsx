@@ -8,6 +8,9 @@ export const PageArea = styled.div`
         display: flex;
         flex-wrap: wrap;
     }
+    .--ad-item{
+        width: 25%;
+    }
     .seeAllLink{
         color: #000;
         text-decoration: none;

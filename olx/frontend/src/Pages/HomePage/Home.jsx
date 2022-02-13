@@ -3,7 +3,7 @@ import { PageArea, SearchArea } from "./styled";
 import { PageContainer } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
 import { Link } from "react-router-dom";
-import { AdItem } from "../../Components/Partials/AdItem";
+import  AdItem  from "../../Components/Partials/AdItem";
 
 export const Home = () => {
     const api = useAPI();
