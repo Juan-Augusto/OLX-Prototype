@@ -1,5 +1,5 @@
 
-import { AdArea } from "./styled";
+import { AdArea, Fake } from "./styled";
 import { useParams } from "react-router-dom";
 import { PageContainer } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
@@ -18,14 +18,20 @@ export const AdPage = () => {
                     <div className="leftSide">
                         <div className="box">
                             <div className="adImage">
-                                ...
+                                {
+                                    loading && <Fake height={300}/>
+                                }
                             </div>
                             <div className="adInfo">
                                 <div className="adName">
-                                    ...
+                                    {
+                                        loading && <Fake height={20}/>
+                                    }
                                 </div>
                                 <div className="adDescription">
-                                    ...
+                                    {
+                                        loading && <Fake height={100}/>
+                                    }
                                 </div>
                                 
                             </div>
@@ -33,7 +39,16 @@ export const AdPage = () => {
 
                     </div>
                     <div className="rightSide">
-                        ...
+                        <div className="box box--adjustment">
+                            {
+                              loading && <Fake height={20}/>
+                            }
+                        </div>
+                        <div className="box box--adjustment">
+                            {
+                              loading && <Fake height={50}/>
+                            }
+                        </div>
                     </div>
                 </AdArea>
             </PageContainer>
