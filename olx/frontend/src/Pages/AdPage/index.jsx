@@ -3,14 +3,29 @@ import { AdArea, Fake } from "./styled";
 import { useParams } from "react-router-dom";
 import { PageContainer } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const AdPage = () => {
     const api = useAPI();
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
-    const[adInfo, setAdInfo] = useState([]);
-    //if(){
+    const[adInfo, setAdInfo] = useState({});
+    useEffect(() => {
+        const getAdInfo = async (id) => {
+            const json = await api.getAd(id, true);
+            setAdInfo(json);
+            setLoading(false);
+        }
+        getAdInfo(id);
+    }, [])
+    const formatDate = (date) => {
+        let cDate = new Date(date);
+        let months = [ 'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro' ];
+        let cDay = cDate.getDate();
+        let cMonth = cDate. getMonth();
+        let cYear = cDate.getFullYear();
+        return `${cDay} de ${months[cMonth]} de ${cYear}`
+    }
         return(
             
             <PageContainer>
@@ -21,16 +36,35 @@ export const AdPage = () => {
                                 {
                                     loading && <Fake height={300}/>
                                 }
+                                {
+                                    adInfo.image &&
+                                    <img src={adInfo.image} alt="item-image" />
+                                }
                             </div>
                             <div className="adInfo">
                                 <div className="adName">
                                     {
                                         loading && <Fake height={20}/>
                                     }
+                                    {
+                                        adInfo.title &&
+                                        <h2>{adInfo.title}</h2>
+
+                                    }
+                                    {
+                                        adInfo.dateCreated &&
+                                        <small>Criado em: {formatDate(adInfo.dateCreated)}</small>
+                                    }
                                 </div>
                                 <div className="adDescription">
                                     {
                                         loading && <Fake height={100}/>
+                                    }
+                                    {adInfo.description}
+                                    <hr />
+                                    {
+                                        adInfo.views &&
+                                        <small>Visualizações: {adInfo.views}</small>
                                     }
                                 </div>
                                 
@@ -52,6 +86,5 @@ export const AdPage = () => {
                     </div>
                 </AdArea>
             </PageContainer>
-       // }
     );
 }
