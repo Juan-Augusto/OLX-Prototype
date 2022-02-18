@@ -86,7 +86,7 @@ export const SearchArea = styled.div`
             &:hover{
                 transform: translateY(-3px);
                 background-color: #007;
-                color: #999;
+                color: #FFF;
                 font-weight: bold;
             }
 
