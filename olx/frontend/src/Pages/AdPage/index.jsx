@@ -85,12 +85,31 @@ export const AdPage = () => {
                             {
                               loading && <Fake height={20}/>
                             }
-                        </div>
-                        <div className="box box--adjustment">
                             {
-                              loading && <Fake height={50}/>
+                                adInfo.priceNegotiable &&
+                                "Preço negociável"
+                            }
+                            {
+                                !adInfo.priceNegotiable && adInfo.price &&
+                                    <div className="price">
+                                        Preço: <span>R$ {adInfo.price},00</span>
+                                    </div>
                             }
                         </div>
+                        {
+                            loading && <Fake height={50}/>
+                        }
+                        {adInfo.userInfo &&
+                            <>
+                                <a href={`mail to: ${adInfo.userInfo.email}`} className="contactSeller" target="_blank"> Fale com o vendendor</a>
+                                <div className=" createdBy box box--adjustment">
+                                    Criado por:
+                                    <strong>{adInfo.userInfo.name}</strong>
+                                    <small>E-mail: {adInfo.userInfo.email}</small>
+                                    <small>Estado: {adInfo.stateName}</small>
+                                </div>
+                            </>    
+                        }
                     </div>
                 </AdArea>
             </PageContainer>
