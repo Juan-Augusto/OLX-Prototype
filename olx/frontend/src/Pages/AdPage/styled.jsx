@@ -12,6 +12,7 @@ export const AdArea = styled.div`
     
     
     .box{
+        display: flex;
         background-color: #FFF;
         border-radius: 5px;
         box-shadow: 0 0 4px #999;
@@ -24,12 +25,25 @@ export const AdArea = styled.div`
         flex: 1;
         margin-right: 20px;
         .adImage{
-
+            width: 320px;
+            heigth: 320px;
+            margin-right: 20px;
+            
+            each-slide img{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-size: cover;
+                height: 320px;
+            }
         }
         .adInfo{
             padding: 10px;
             .adName{
                 margin-bottom: 20px;
+            }
+            small{
+                color: #999;
             }
             .adDescription{
                 

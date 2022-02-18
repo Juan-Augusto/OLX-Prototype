@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { PageContainer } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
 import { useEffect, useState } from "react";
+import {Slide} from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
 
 export const AdPage = () => {
     const api = useAPI();
@@ -37,8 +39,14 @@ export const AdPage = () => {
                                     loading && <Fake height={300}/>
                                 }
                                 {
-                                    adInfo.image &&
-                                    <img src={adInfo.image} alt="item-image" />
+                                    adInfo.images &&
+                                    <Slide>
+                                        {adInfo.images.map((img, imageKey) => 
+                                            <div key={imageKey} className='each-child'>
+                                                <img src={img} alt="item-image" />
+                                            </div>
+                                        )}
+                                    </Slide>
                                 }
                             </div>
                             <div className="adInfo">
