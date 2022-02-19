@@ -14,7 +14,7 @@ authentication process.
 
 ## Authors
 
-- [@Juan-Augusto](https://www.linkedin.com/in/juan-soares-881877177/)
+- [@Juan-Augusto](https://github.com/Juan-Augusto/)
 
 
 
