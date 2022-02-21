@@ -33,8 +33,7 @@ export const AdArea = styled.div`
         border: 1px solid blue;
         box-shadow: 5px 5px 5px #0000ff;
         transform: translateY(-3px);
-        background-color: #000;
-        color: #FFF;
+        
     }
     .leftSide{
         flex: 1;
@@ -94,7 +93,7 @@ export const AdArea = styled.div`
             background-color: #000;
             color: #FFF;
             border: 1px solid blue;
-            box-shadow: 5px 5px 5px #0000ff;
+            box-shadow: 1px 1px 7px #0000ff;
             transform: translateY(-3px);
         }
         .createdBy{
@@ -102,5 +101,32 @@ export const AdArea = styled.div`
         }
 
     }
+
+`;
+export const OthersArea = styled.div`
+    h2{
+        font-size: 20px;
+    }
+    .list{
+        display: flex;
+        flex-wrap: wrap;
+
+
+        .--ad-item{
+            width: 25%;
+        }
+    }
+`;
+export const BreadCrumb = styled.div`
+    font-size: 13px;
+    margin-top: 20px;
+
+    a{
+        display: inline-block;
+        margin: 0 5px;
+        text-decoration: underline;
+        color: #000;
+    }
+
 
 `;
