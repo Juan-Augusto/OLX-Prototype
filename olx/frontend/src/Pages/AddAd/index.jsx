@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginArea } from "./styled";
 import { PageContainer, PageTitle } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
@@ -9,7 +10,7 @@ export const AddAdPage = () => {
     const api = useAPI();
 
     const fileField = useRef();
-
+    const history = useNavigate();
     const [title, setTitle] = useState('');
     const [categories, setCategories] = useState('');
     const [category, setCategory] = useState('');
@@ -27,19 +28,44 @@ export const AddAdPage = () => {
         getCategories();
     }, [])
 
-    // const handleSubmit = async (e) =>{
-    //     e.preventDefault();
-    //     setDisabled(true);
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        setDisabled(true);
+        setError('')
+        let errors = [];
 
-    //     const json = await api.login(email, password);
-    //     if(json.error) {
-    //         setError(json.error);
-    //     }else{
-    //         doLogin(json.token, rememberPassword); //saves cookie
-    //         window.location.href = '/'
-    //     }
-    //     setDisabled(false);
-    // }
+        if(!title.trim()){
+            errors.push('Sem Título');
+        }
+        if(!category){
+            errors.push('Sem categoria');
+        }
+        if(errors.length === 0){
+            const fData = new FormData();
+            fData.append('title', title);
+            fData.append('price', price);
+            fData.append('priceneg', priceNegotiable);
+            fData.append('desc', description);
+            fData.append('cat', category);
+            if(fileField.current.length > 0){
+                for(let i=0; i<fileField.current.length; i++){
+                    fData.append('img', fileField.current.files[i]);
+                }
+            }
+
+            const json = await api.addAd(fData);
+            if(!json.error){
+                history.push(`/ad/${json.id}`);
+                return;
+            }else{
+                setError(json.error);
+            }
+        }else{
+            setError(errors.join("\n"));
+        }
+        setDisabled(false);
+
+    }
     const priceMask = createNumberMask({
         prefix: 'R$ ',
         includeThousandsSeparator: true,
@@ -62,7 +88,7 @@ export const AddAdPage = () => {
                         <div className="area--title">Título</div>
                         <div className="area--input">
                             <input 
-                                type="email" 
+                                type="text" 
                                 disabled={disabled} 
                                 value={title}
                                 onChange={e=>setTitle(e.target.value)}    
@@ -91,7 +117,7 @@ export const AddAdPage = () => {
                         <div className="area--title">Preço</div>
                         <div className="area--input">
                             <input 
-                                mask={priceMask}
+                                // mask={priceMask}
                                 type="number" 
                                 placeholder="R$ "
                                 disabled={disabled || priceNegotiable}
