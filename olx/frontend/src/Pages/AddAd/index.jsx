@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { LoginArea } from "./styled";
 import { PageContainer, PageTitle } from "../../Components/MainComponents";
 import useAPI from '../../Components/Helpers/OlxApi'
-import { doLogin } from "../../Components/Helpers/AuthHandler";
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { ErrorMessage } from "../../Components/MainComponents";
 
 export const AddAdPage = () => {
@@ -11,12 +11,21 @@ export const AddAdPage = () => {
     const fileField = useRef();
 
     const [title, setTitle] = useState('');
+    const [categories, setCategories] = useState('');
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
     const [priceNegotiable, setPriceNegotiable] = useState(false);
     const [description, setDescription] = useState('');
     const [ disabled, setDisabled ] = useState(false);
     const [error, setError] = useState('');
+
+    useEffect(() =>{
+        const getCategories = async () =>{
+            const cats = await api.getCategories();
+            setCategories(cats);
+        }
+        getCategories();
+    }, [])
 
     // const handleSubmit = async (e) =>{
     //     e.preventDefault();
@@ -31,6 +40,13 @@ export const AddAdPage = () => {
     //     }
     //     setDisabled(false);
     // }
+    const priceMask = createNumberMask({
+        prefix: 'R$ ',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: true,
+        decimalSymbol: ','
+    });
 
     return(
         <PageContainer>
@@ -57,13 +73,32 @@ export const AddAdPage = () => {
                     <label className="area">
                         <div className="area--title">Categoria</div>
                         <div className="area--input">
-                            <select name="" id=""></select>
+                            <select
+                                onChange={e=>setCategory(e.target.value)}
+                                disabled={disabled}
+                                required
+                                name="" 
+                                id=""
+                                >
+                                    <option value=""></option>
+                                    {categories && categories.map((optionItem, optionKey) => 
+                                        <option value={optionItem.id} key={optionKey}>{optionItem.name}</option>
+                                    )}
+                                </select>
                         </div>
                     </label>
                     <label className="area">
                         <div className="area--title">Preço</div>
                         <div className="area--input">
-                            ...
+                            <input 
+                                mask={priceMask}
+                                type="number" 
+                                placeholder="R$ "
+                                disabled={disabled || priceNegotiable}
+                                value={price}
+                                onChange={e=>setPrice(e.target.value)}
+                            />
+                            
                         </div>
                     </label>
                     <label className="area">
