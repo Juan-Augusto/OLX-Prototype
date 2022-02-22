@@ -7,6 +7,7 @@ import { LoginPage } from "./Pages/LoginPage";
 import { SignupPage } from "./Pages/SignupPage";
 import { AdPage } from "./Pages/AdPage";
 import { AddAdPage } from "./Pages/AddAd";
+import { Ads } from "./Pages/Ads/Home";
 import { ErrorPage } from "./Pages/ErrorPage/ErrorPage";
 
 export const Routes = () => {
@@ -18,6 +19,7 @@ export const Routes = () => {
             {path: '/signup', element: <SignupPage/> },
             {path: '/ad/:id', element: <AdPage/> },
             {path: '/post-an-ad', element: <AddAdPage/> },
+            {path: '/ads', element: <Ads/> },
             {path: '/*', element: <ErrorPage/> }
 
         ]
