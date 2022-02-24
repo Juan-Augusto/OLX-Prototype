@@ -3,7 +3,8 @@
 
 This project consist of a website focused on the presentation of products
 consuming a third party RestAPI, using ReactJS with the js-cookie lib for the 
-authentication process. 
+authentication process.
+
 
 
 ## Acknowledgements
